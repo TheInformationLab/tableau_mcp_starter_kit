@@ -1,0 +1,5 @@
+.env
+.venv/*
+.logs/*
+*.pyc
+dashboard_app_demo.py

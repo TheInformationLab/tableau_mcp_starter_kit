@@ -1,0 +1,162 @@
+/* Reset box-sizing for everything */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Base styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    min-height: 95vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    color: #333;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* Container: centered app look */
+.container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 800px;
+    margin: 10px auto;
+    height: 95vh; /*calc(100vh - 80px);   Subtract top + bottom margin */
+    display: flex;
+    flex-direction: column;
+}
+
+/* When running inside Tableau (iframe), use all available space */
+body.in-extension .container {
+    max-width: 100vw !important;
+    width: 100vw !important;
+    margin: 0 !important;
+    border-radius: 0;
+    height: 100vh;
+    min-height: 0;
+}
+
+/* Chat box should flex and scroll as needed */
+.chat-box {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    background: #fafbfc;
+    min-height: 0;
+}
+
+/* Header styles */
+header {
+    background: #2c3e50;
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0 0 10px 0;
+    font-size: 2em;
+}
+
+header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Chat message styles */
+.message {
+    margin: 15px 0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    max-width: 80%;
+    line-height: 1.4;
+}
+
+.message.user {
+    background: #007bff;
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+.message.bot {
+    background: #e9ecef;
+    color: #495057;
+}
+
+/* Input area at the bottom */
+.input-area {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #dee2e6;
+}
+
+#messageInput {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#messageInput:focus {
+    border-color: #007bff;
+}
+
+#sendBtn {
+    padding: 12px 24px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+#sendBtn:hover {
+    background: #0056b3;
+}
+
+#sendBtn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        max-width: 100vw;
+        width: 100vw;
+        margin: 0;
+        border-radius: 0;
+        height: 100vh;
+    }
+    body {
+        padding: 0;
+    }
+    header {
+        padding: 20px;
+    }
+    header h1 {
+        font-size: 1.5em;
+    }
+    .chat-box {
+        padding: 15px;
+    }
+    .input-area {
+        padding: 15px;
+        flex-direction: column;
+    }
+    #sendBtn {
+        padding: 12px;
+    }
+}

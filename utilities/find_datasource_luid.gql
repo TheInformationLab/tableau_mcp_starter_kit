@@ -1,0 +1,22 @@
+query Find_Datasources_LUID {
+	    tableauSites {
+    		name
+        publishedDatasources(filter: { name: "Superstore"}) {
+            name
+      			projectName
+            description
+            luid
+                uri
+            owner {
+            username
+            name
+            email
+            }
+            hasActiveWarning
+            extractLastRefreshTime
+            extractLastIncrementalUpdateTime
+            extractLastUpdateTime
+            
+        }
+		}
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tableau AI Chat</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="static/style.css">
+    <script src="static/script.js"></script>
+    <script src="static/tableau.extensions.1.latest.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Tableau AI Assistant</h1>
+        </header>
+
+        <div class="chat-box" id="chatBox">
+            <div class="message bot">
+                Hello! Ask me anything about your Tableau data.
+            </div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Type your question here..."
+                onkeypress="handleEnter(event)">
+            <button onclick="sendMessage()" id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
