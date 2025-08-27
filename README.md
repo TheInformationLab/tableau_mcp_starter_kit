@@ -25,6 +25,21 @@ When using this code, data from Tableau will be sent to an external AI model (by
 
 If you need to process sensitive or proprietary information, consider configuring the tool to use a local AI model instead of an external service. This approach ensures your data remains within your organisation’s infrastructure and reduces the risk of data exposure.
 
+## 📺 Quickstart Tableau MCP Guides
+
+If you haven't tried Tableau MCP yet I recommend testing it out using desktop applications like Claude Desktop and VSCode. You can find links to my quickstart tutorials below.
+
+<div align="center">
+
+<a href="https://www.youtube.com/watch?v=hmdzDlMBraw">
+    <img src="https://img.youtube.com/vi/hmdzDlMBraw/maxresdefault.jpg" width ="48%">
+</a>
+<a href="https://www.youtube.com/watch?v=9XlyYQjHMgA">
+    <img src="https://img.youtube.com/vi/9XlyYQjHMgA/maxresdefault.jpg" width ="48%">
+</a>
+
+</div>
+
 ## 📺 Step Up Guide 
 
 Coming soon...
@@ -193,6 +208,10 @@ cd tableau_mcp_starter_kit
 ```bash
 python dashboard_app.py
 ```
+
+Verify the app is running, open your browser and navigate to:
+- **Local development:** `http://localhost:8000`
+- The application will display the correct URL in the terminal
 
 Once running, open your Tableau workbook, or the [Superstore Dashboard](dashboard_extension\Superstore.twbx)
 
