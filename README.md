@@ -2,7 +2,7 @@
 
 A powerful integration that brings AI functionality to Tableau Server or Tableau Cloud using MCP and LangChain, enabling natural language interactions with the data you trust in Tableau.
 
-This repo is an implementation of [tableau-mcp](https://github.com/tableau/tableau-mcp) using the MCP tools with LangChain, building on the [tableau_langchain_starter_kit].
+This repo is an implementation of [tableau-mcp](https://github.com/tableau/tableau-mcp) using the MCP tools with LangChain, building on the [tableau_langchain_starter_kit](https://github.com/TheInformationLab/tableau_langchain_starter_kit).
 
 ## 🚀 Features
 
