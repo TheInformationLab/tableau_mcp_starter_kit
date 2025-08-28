@@ -34,8 +34,8 @@ If you haven't tried Tableau MCP yet I recommend testing it out using desktop ap
 <a href="https://www.youtube.com/watch?v=hmdzDlMBraw">
     <img src="https://img.youtube.com/vi/hmdzDlMBraw/maxresdefault.jpg" width ="48%">
 </a>
-<a href="https://www.youtube.com/watch?v=9XlyYQjHMgA">
-    <img src="https://img.youtube.com/vi/9XlyYQjHMgA/maxresdefault.jpg" width ="48%">
+<a href="https://www.youtube.com/watch?v=opbXLGZDKdU">
+    <img src="https://img.youtube.com/vi/opbXLGZDKdU/maxresdefault.jpg" width ="48%">
 </a>
 
 </div>
