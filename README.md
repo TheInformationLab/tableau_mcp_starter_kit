@@ -42,10 +42,9 @@ If you haven't tried Tableau MCP yet I recommend testing it out using desktop ap
 
 ## 📺 Step Up Guide 
 
-Coming soon...
-<!--a href="https://www.youtube.com/watch?v=2sPJfxeoJ90">
-    <img src="https://img.youtube.com/vi/2sPJfxeoJ90/maxresdefault.jpg" width ="80%">
-</a-->
+<a href="https://www.youtube.com/watch?v=juD1rQxhiqA">
+    <img src="https://img.youtube.com/vi/juD1rQxhiqA/maxresdefault.jpg" width ="80%">
+</a>
 
 ## 🛠️ Installation
 
