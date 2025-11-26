@@ -12,7 +12,9 @@ from mcp.client.stdio import stdio_client
 # LangChain Libraries
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langchain_openai import ChatOpenAI
-from langgraph.prebuilt import create_react_agent
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_anthropic import ChatAnthropic
+from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import InMemorySaver
 
@@ -86,7 +88,7 @@ async def lifespan(app: FastAPI):
 
                 # Create the agent
                 checkpointer = InMemorySaver()
-                agent = create_react_agent(model=llm, tools=mcp_tools, prompt=SUPERSTORE_AGENT_SYSTEM_PROMPT, checkpointer=checkpointer)
+                agent = create_agent(model=llm, tools=mcp_tools, prompt=SUPERSTORE_AGENT_SYSTEM_PROMPT, checkpointer=checkpointer)
                 
                 yield
         
