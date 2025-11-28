@@ -70,7 +70,7 @@ async def lifespan(app: FastAPI):
                     case 'Google':
                         llm = ChatGoogleGenerativeAI(model=os.environ["GEMINI_MODEL"], temperature=0)
                     case 'Anthropic':
-                        llm = ChatAnthropic(model=os.environ["ANTHROPIC_MODEL"], temperature=0)
+                        llm = ChatAnthropic(model=os.environ["ANTHROPIC_MODEL"], temperature=0, max_retries=7)
                     case _:
                         raise RuntimeError("Could not initialise llm")
 
