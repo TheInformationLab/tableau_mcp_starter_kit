@@ -12,7 +12,9 @@ from mcp.client.stdio import stdio_client
 # LangChain Libraries
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langchain_openai import ChatOpenAI
-from langgraph.prebuilt import create_react_agent
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_anthropic import ChatAnthropic
+from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import InMemorySaver
 
@@ -62,11 +64,19 @@ async def lifespan(app: FastAPI):
                 mcp_tools = await load_mcp_tools(client_session)
                 
                 # Set AI Model
-                llm = ChatOpenAI(model="gpt-4.1", temperature=0)
+                match os.environ['MODEL_PROVIDER']:
+                    case 'OpenAI':
+                        llm = ChatOpenAI(model=os.environ["OPENAI_MODEL"], temperature=0)
+                    case 'Google':
+                        llm = ChatGoogleGenerativeAI(model=os.environ["GEMINI_MODEL"], temperature=0)
+                    case 'Anthropic':
+                        llm = ChatAnthropic(model=os.environ["ANTHROPIC_MODEL"], temperature=0)
+                    case _:
+                        raise RuntimeError("Could not initialise llm")
 
                 # Create the agent
                 checkpointer = InMemorySaver()
-                agent = create_react_agent(model=llm, tools=mcp_tools, prompt=AGENT_SYSTEM_PROMPT, checkpointer=checkpointer)
+                agent = create_agent(model=llm, tools=mcp_tools, system_prompt=AGENT_SYSTEM_PROMPT, checkpointer=checkpointer)
                 
                 yield
         

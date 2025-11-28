@@ -80,6 +80,7 @@ header p {
     color: white;
     margin-left: auto;
     text-align: right;
+    width: fit-content;
 }
 
 .message.bot {

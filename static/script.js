@@ -32,6 +32,9 @@ async function sendMessage() {
             addMessage(data.response, 'bot');
         } else {
             addMessage('Sorry, something went wrong! Please try again.', 'bot');
+            if (data.detail) {
+                console.error(data.detail)
+            }
         }
         
     } catch (error) {

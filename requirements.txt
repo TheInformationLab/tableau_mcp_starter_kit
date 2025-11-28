@@ -3,6 +3,9 @@ mcp
 langchain
 langchain-mcp-adapters
 langchain-openai
+langchain-google-genai
+langchain-anthropic
 langgraph
 langfuse
 python-dotenv
+google-genai

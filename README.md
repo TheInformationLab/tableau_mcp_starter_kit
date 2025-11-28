@@ -114,7 +114,9 @@ cp .env_template .env
 
 2. Open the `.env` file in your preferred text editor and configure the following variables:
 
-```
+***Note**: You need to configure the `MODEL_PROVIDER` key and only one pair of `<Provider>_MODEL` & `<Provider>_API_KEY` of your choice*
+
+```sh
 # Tableau MCP Server Config
 TRANSPORT='stdio'
 SERVER='https://my-tableau-server.com'
@@ -134,7 +136,19 @@ DISABLE_QUERY_DATASOURCE_FILTER_VALIDATION=''
 TABLEAU_MCP_FILEPATH='your/local/filepath/to/tableau-mcp/build/index.js'
 
 # Model Providers
+MODEL_PROVIDER='' # 'OpenAI' | 'Google' | 'Anthropic'
+
+# OpenAI
 OPENAI_API_KEY='from OpenAI developer portal'
+OPENAI_MODEL='model identifier'
+
+# Google
+GEMINI_MODEL= 'model identifier' # gemini-2.5-flash | gemini-1.5-pro | gemini-1.5-flash | Only a few Gemini versions can support function calls (tools and MCPs) please double check the docs at : https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/function-calling?hl=fr
+GOOGLE_API_KEY='your google API key'
+
+# Anthropic
+ANTHROPIC_MODEL='model identifier'
+ANTHROPIC_API_KEY='your Anthropic api key'
 
 # Langfuse 
 LANGFUSE_PUBLIC_KEY = 'Public key from https://langfuse.com/'

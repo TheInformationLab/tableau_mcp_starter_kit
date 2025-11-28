@@ -1,5 +1,9 @@
+from langgraph.graph.state import CompiledStateGraph
+from langchain_core.messages import HumanMessage
+from typing import List
+from langfuse.langchain import CallbackHandler
 
-async def format_agent_response(agent, messages, langfuse_handler):
+async def format_agent_response(agent: CompiledStateGraph, messages: List[HumanMessage], langfuse_handler: CallbackHandler):
     """Stream response from agent and return the final content"""
     
     response_text = ""
