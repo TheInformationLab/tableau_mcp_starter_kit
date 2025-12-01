@@ -9,3 +9,4 @@ langgraph
 langfuse
 python-dotenv
 google-genai
+itsdangerous

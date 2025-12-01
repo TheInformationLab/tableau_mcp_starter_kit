@@ -1,9 +1,11 @@
 # Web UI Libraries
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from contextlib import asynccontextmanager
+from starlette.middleware.sessions import SessionMiddleware
+import uuid
 
 # MCP libraries
 from mcp import ClientSession, StdioServerParameters
@@ -48,10 +50,11 @@ async def lifespan(app: FastAPI):
     logger.info("Starting up application...")
     
     try:
-        # Setup MCP connection
+        # Setup MCP connection with environment variables
         server_params = StdioServerParameters(
             command="node",
             args=[mcp_location],
+            env=dict(os.environ)  # Pass all environment variables to MCP server
         )
 
         # Use proper async context management
@@ -74,7 +77,7 @@ async def lifespan(app: FastAPI):
                     case _:
                         raise RuntimeError("Could not initialise llm")
 
-                # Create the agent
+                # Create the agent with checkpointer for conversation memory
                 checkpointer = InMemorySaver()
                 agent = create_agent(model=llm, tools=mcp_tools, system_prompt=AGENT_SYSTEM_PROMPT, checkpointer=checkpointer)
                 
@@ -87,10 +90,15 @@ async def lifespan(app: FastAPI):
 
 # Create FastAPI app with lifespan
 app = FastAPI(
-    title="Tableau AI Chat", 
+    title="Tableau AI Chat",
     description="Simple AI chat interface for Tableau data",
     lifespan=lifespan
 )
+
+# Add session middleware for user session management
+# Secret key should be random and kept secret in production
+SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY", str(uuid.uuid4()))
+app.add_middleware(SessionMiddleware, secret_key=SESSION_SECRET_KEY)
 
 # Serve static files (HTML, CSS, JS)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -113,24 +121,38 @@ def home():
 def static_index():
     return FileResponse('static/index.html')
 
+@app.get("/session")
+async def get_session(request: Request):
+    """Get the current session ID"""
+    if "session_id" not in request.session:
+        request.session["session_id"] = str(uuid.uuid4())
+    return {"session_id": request.session["session_id"]}
+
 @app.post("/chat")
-async def chat(request: ChatRequest) -> ChatResponse:
+async def chat(chat_request: ChatRequest, request: Request) -> ChatResponse:
     """Handle chat messages - this is where the AI magic happens"""
     global agent
-    
+
     if agent is None:
         logger.error("Agent not initialized")
         raise HTTPException(status_code=500, detail="Agent not initialized. Please restart the server.")
-    
-    try:      
-        # Create proper message format for LangGraph
-        messages = [HumanMessage(content=request.message)]
 
-        # Get response from agent
-        response_text = await format_agent_response(agent, messages, langfuse_handler)
-        
+    try:
+        # Get or create session ID for this user
+        if "session_id" not in request.session:
+            request.session["session_id"] = str(uuid.uuid4())
+
+        session_id = request.session["session_id"]
+        logger.info(f"Processing chat request for session: {session_id}")
+
+        # Create proper message format for LangGraph
+        messages = [HumanMessage(content=chat_request.message)]
+
+        # Get response from agent with session-specific thread_id
+        response_text = await format_agent_response(agent, messages, langfuse_handler, session_id)
+
         return ChatResponse(response=response_text)
-        
+
     # Error Handling
     except Exception as e:
         logger.error(f"Error processing chat request: {str(e)}", exc_info=True)

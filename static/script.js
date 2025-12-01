@@ -65,7 +65,20 @@ function handleEnter(event) {
     }
 }
 
+// Fetch and display session ID
+async function loadSessionId() {
+    try {
+        const response = await fetch('/session');
+        const data = await response.json();
+        document.getElementById('sessionId').textContent = data.session_id;
+    } catch (error) {
+        console.error('Error loading session:', error);
+        document.getElementById('sessionId').textContent = 'Error loading session';
+    }
+}
+
 // Focus on input when page loads
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('messageInput').focus();
+    loadSessionId();
 });
