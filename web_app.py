@@ -47,9 +47,13 @@ async def lifespan(app: FastAPI):
     
     try:
         # Setup MCP connection
+        # Forward os.environ so the Node tableau-mcp child sees SERVER, SITE_NAME,
+        # PAT_NAME, PAT_VALUE, etc. The default StdioServerParameters env only
+        # inherits a Windows safe-list (PATH, APPDATA, ...).
         server_params = StdioServerParameters(
             command="node",
             args=[mcp_location],
+            env={**os.environ},
         )
 
         # Use proper async context management

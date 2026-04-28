@@ -38,9 +38,10 @@ tool_list = 'list-fields-fixed, read-metadata-fixed, query-datasource-fixed'
 datasource_luid = os.environ.get('FIXED_DATASOURCE_LUID')
 
 custom_env = {
+    **os.environ,
     "INCLUDE_TOOLS": tool_list,
-    "FIXED_DATASOURCE_LUID": datasource_luid
-    }
+    "FIXED_DATASOURCE_LUID": datasource_luid,
+}
 
 # Set Langfuse Tracing
 from langfuse.langchain import CallbackHandler
